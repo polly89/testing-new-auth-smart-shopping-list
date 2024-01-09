@@ -35,12 +35,12 @@ export function App() {
 	 * the shopping lists that the user has access to.
 	 * Check ./api/firestore.js for its implementation.
 	 */
-	const lists = useShoppingLists(userId, userEmail);
+	const shoppingLists = useShoppingLists(userId, userEmail);
 	/**
 	 * This custom hook takes our token and fetches the data for our list.
 	 * Check ./api/firestore.js for its implementation.
 	 */
-	const data = useShoppingListData(listPath);
+	const activeShoppingListData = useShoppingListData(listPath);
 
 	return (
 		<Router>
@@ -48,9 +48,9 @@ export function App() {
 				<Route path="/" element={<Layout />}>
 					<Route
 						index
-						element={<Home data={lists} setListPath={setListPath} />}
+						element={<Home data={shoppingLists} setListPath={setListPath} />}
 					/>
-					<Route path="/list" element={<List data={data} />} />
+					<Route path="/list" element={<List data={activeShoppingListData} />} />
 					<Route path="/manage-list" element={<ManageList />} />
 				</Route>
 			</Routes>
