@@ -137,14 +137,14 @@ export async function createList(userId, userEmail, listName) {
 export async function shareList(listPath, currentUserId, recipientEmail) {
 	// Check if current user is owner.
 	if (!listPath.includes(currentUserId)) {
-		return;
+		return "Cannot share unowned list.";
 	}
 	// Get the document for the recipient user.
 	const usersCollectionRef = collection(db, 'users');
 	const recipientDoc = await getDoc(doc(usersCollectionRef, recipientEmail));
 	// If the recipient user doesn't exist, we can't share the list.
 	if (!recipientDoc.exists()) {
-		return;
+		return "Unrecognized email.";
 	}
 	// Add the list to the recipient user's sharedLists array.
 	const listDocumentRef = doc(db, listPath);
@@ -152,6 +152,7 @@ export async function shareList(listPath, currentUserId, recipientEmail) {
 	updateDoc(userDocumentRef, {
 		sharedLists: arrayUnion(listDocumentRef),
 	});
+	return "List shared."
 }
 
 /**
