@@ -13,13 +13,22 @@ import './Layout.css';
  */
 
 export function Layout() {
-	const {user} =  useAuth();
+	const { user } = useAuth();
 	return (
 		<>
 			<div className="Layout">
 				<header className="Layout-header">
 					<h1>Smart shopping list</h1>
-
+					{!!user ? (
+						<div>
+							<SignOutButton />
+						</div>
+					) : (
+						<div>
+							{' '}
+							<SignInButton />
+						</div>
+					)}
 				</header>
 				<main className="Layout-main">
 					<Outlet />
