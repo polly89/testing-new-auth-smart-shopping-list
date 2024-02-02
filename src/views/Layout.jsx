@@ -1,4 +1,6 @@
 import { Outlet } from 'react-router-dom';
+import { useAuth, SignInButton, SignOutButton } from '../api/useAuth';
+import { auth } from '../api/config';
 
 import './Layout.css';
 
@@ -11,6 +13,7 @@ import './Layout.css';
  */
 
 export function Layout() {
+	const {user} =  useAuth();
 	return (
 		<>
 			<div className="Layout">
